@@ -1,0 +1,15 @@
+[Unit]
+Description=A high performance web server and a reverse proxy server
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/run/openresty.pid
+EnvironmentFile=/etc/default/openresty
+ExecStartPre=/opt/openresty/nginx/sbin/nginx -t -q -g 'pid /run/openresty.pid; daemon on; master_process on;' $OPTS
+ExecStart=/opt/openresty/nginx/sbin/nginx -g 'pid /run/openresty.pid; daemon on; master_process on;' $OPTS
+ExecReload=/opt/openresty/nginx/sbin/nginx -g 'pid /run/openresty.pid; daemon on; master_process on;' $OPTS -s reload
+ExecStop=/opt/openresty/nginx/sbin/nginx -g 'pid /run/openresty.pid;' $OPTS -s quit
+
+[Install]
+WantedBy=multi-user.target

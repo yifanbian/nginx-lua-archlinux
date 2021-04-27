@@ -1,0 +1,18 @@
+/opt/openresty/nginx/logs/*.log {
+        daily
+        rotate 30
+        dateext
+        create 0644 http http
+        missingok
+        notifempty
+        sharedscripts
+        compress
+        delaycompress
+        compresscmd /usr/bin/zstd
+        uncompresscmd /usr/bin/unzstd
+        compressoptions -9 --long -T0
+        compressext .zst
+        postrotate
+                test -r /run/openresty.pid && kill -USR1 `cat /run/openresty.pid`
+        endscript
+}
