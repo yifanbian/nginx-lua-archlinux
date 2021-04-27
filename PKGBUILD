@@ -3,10 +3,10 @@ _ngxdir=$_pfxdir/nginx
 _cfgdir=$_ngxdir/conf
 _tmpdir=/var/lib/openresty
 pkgname=openresty
-pkgver=1.19.8
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="A Fast and Scalable Web Platform by Extending NGINX with Lua"
-arch=('i686' 'x86_64' 'armv6h')
+arch=('x86_64')
 url="http://openresty.org/"
 license=('BSD')
 depends=('perl>=5.6.1' 'readline' 'pcre')
@@ -55,7 +55,7 @@ source=(http://nginx.org/download/nginx-$pkgver.tar.gz{,.asc}
         $pkgname.sh
         )
 noextract=()
-sha256sums=('308919b1a1359315a8066578472f998f14cb32af8de605a3743acca834348b05'
+sha256sums=('54ef91ec8ebcaa486c640c09c92d832eaeaff149b10ee52ef140f407b1b04d1c'
             'SKIP'
             '84eb6488db8496adb9cf0ced4fee75465d0c0a05b74db6b8dfd44f36e967e8a8'
             '0e971105e210d272a497567fa2e2c256f4e39b845a5ba80d373e26ba1abfbd85'
@@ -86,7 +86,8 @@ backup=(${_cfgdir:1}/fastcgi.conf
         ${_cfgdir:1}/scgi_params
         ${_cfgdir:1}/uwsgi_params
         ${_cfgdir:1}/win-utf
-        etc/logrotate.d/openresty)
+        etc/logrotate.d/openresty
+        etc/default/openresty)
 
 build() {
   # Build LuaJIT
