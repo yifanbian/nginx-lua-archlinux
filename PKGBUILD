@@ -4,7 +4,7 @@ _cfgdir=$_ngxdir/conf
 _tmpdir=/var/lib/openresty
 pkgname=openresty
 pkgver=1.20.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A Fast and Scalable Web Platform by Extending NGINX with Lua"
 arch=('x86_64')
 url="http://openresty.org/"
@@ -16,20 +16,20 @@ options=(!purge)
 validpgpkeys=(
 'B0F4253373F8F6F510D42178520A9993A1C052F8'
 )
-luajit_version=2.1-20201002
+luajit_version=2.1-20201229
 ngx_devel_version=0.3.1
 ngx_echo_version=0.62
 ngx_coolkit_version=0.2
 ngx_set_misc_version=0.32
 ngx_srcache_version=0.32
-ngx_lua_version=0.10.17
+ngx_lua_version=0.10.19
 ngx_lua_upstream_version=0.07
 ngx_headers_more_version=0.33
 ngx_array_var_version=0.05
 ngx_memc_version=0.19
 ngx_redis2_version=0.15
-ngx_stream_lua_version=0.0.8
-ngx_lua_resty_core_version=0.1.19
+ngx_stream_lua_version=0.0.9
+ngx_lua_resty_core_version=0.1.21
 ngx_lua_resty_lrucache_version=0.10
 
 source=(http://nginx.org/download/nginx-$pkgver.tar.gz{,.asc}
@@ -57,20 +57,20 @@ source=(http://nginx.org/download/nginx-$pkgver.tar.gz{,.asc}
 noextract=()
 sha256sums=('54ef91ec8ebcaa486c640c09c92d832eaeaff149b10ee52ef140f407b1b04d1c'
             'SKIP'
-            '84eb6488db8496adb9cf0ced4fee75465d0c0a05b74db6b8dfd44f36e967e8a8'
+            '4275bf97356d713826e7195d1c330568b6089ff1fd4c6954f998e0f60a2baa30'
             '0e971105e210d272a497567fa2e2c256f4e39b845a5ba80d373e26ba1abfbd85'
             '86f6866baf7297d85feb42ff6d9c212d1de696f3314a53d3a41a4b533a67ab01'
             '191f19202e5814996359b66f55b3b32d21d96a47db7295bdb059d6b5a00b08e1'
             'f1ad2459c4ee6a61771aa84f77871f4bfe42943a4aa4c30c62ba3f981f52c201'
             'fd80e59b672e4ff3b4e943740b3facab421c6965226b5934aed16a514baacf47'
-            '1ebdcb041ca3bd238813ef6de352285e7418e6001c41a0a260b447260e37716e'
+            '242d60b97eb7459cd0c0d58083cf7f3195d46181829da45ab8b09a857bb0ed01'
             '2a69815e4ae01aa8b170941a8e1a10b6f6a9aab699dee485d58f021dd933829a'
             'a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf'
             'c949d4be6f3442c8e2937046448dc8d8def25c0e0fa6f4e805144cea45eabe80'
             '8c2bdbe875e4f5225d0778bfb09a2668f9281d7de6218c7b462a7ba2cee06fe8'
             'd255571bcfb9939b78099df39cb4d42f174d789aec8c8e5e47b93942b0299438'
-            'f2c4b7966dbb5c88edb5692616bf0eeca330ee2d43ae04c1cb96ef8fb072ba46'
-            '040878ed9a485ca7f0f8128e4e979280bcf501af875704c8830bec6a68f128f7'
+            '6fcf7054f412a19c23c1ac3c0663f42f40bccc907d98c5d1657ae5cab9973ee9'
+            'a377fbce78ba10f3ed3a8b5173ea318f8cf8da9d2ab127bb1e1f263078bf7da0'
             'dae9fb572f04e7df0dabc228f21cdd8bbfa1ff88e682e983ef558585bc899de0'
             '39604e1e1caf39f7957aef6f69e54f863d5f9bf0007c25ae8162e892a2dc31b1'
             '3685353f77b7b38c584b73a9b695766ac3123c4d760fb208d5e490ca50b2bb16'
