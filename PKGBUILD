@@ -4,7 +4,7 @@ _cfgdir=$_ngxdir/conf
 _tmpdir=/var/lib/openresty
 pkgname=openresty
 pkgver=1.20.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A Fast and Scalable Web Platform by Extending NGINX with Lua"
 arch=('x86_64')
 url="http://openresty.org/"
@@ -31,6 +31,8 @@ ngx_redis2_version=0.15
 ngx_stream_lua_version=0.0.9
 ngx_lua_resty_core_version=0.1.21
 ngx_lua_resty_lrucache_version=0.10
+ngx_lua_resty_string_version=0.14rc1
+lua_cjson_version=2.1.0.8
 
 source=(http://nginx.org/download/nginx-$pkgver.tar.gz{,.asc}
         luajit2-$luajit_version.tar.gz::https://github.com/openresty/luajit2/archive/v$luajit_version.tar.gz
@@ -48,7 +50,9 @@ source=(http://nginx.org/download/nginx-$pkgver.tar.gz{,.asc}
         stream-lua-nginx-module-$ngx_stream_lua_version.tar.gz::https://github.com/openresty/stream-lua-nginx-module/archive/v$ngx_stream_lua_version.tar.gz
         lua-resty-core-$ngx_lua_resty_core_version.tar.gz::https://github.com/openresty/lua-resty-core/archive/v$ngx_lua_resty_core_version.tar.gz
         lua-resty-lrucache-$ngx_lua_resty_lrucache_version.tar.gz::https://github.com/openresty/lua-resty-lrucache/archive/v$ngx_lua_resty_lrucache_version.tar.gz
+        lua-resty-string-$lua_cjson_version.tar.gz::https://github.com/openresty/lua-resty-string/archive/refs/tags/v$ngx_lua_resty_string_version.tar.gz
         lua-resty-cookie.tar.gz::https://github.com/cloudflare/lua-resty-cookie/archive/master.tar.gz
+        lua-cjson-$lua_cjson_version.tar.gz::https://github.com/openresty/lua-cjson/archive/refs/tags/$lua_cjson_version.tar.gz
         service
         default
         $pkgname.logrotate
@@ -73,7 +77,9 @@ sha256sums=('54ef91ec8ebcaa486c640c09c92d832eaeaff149b10ee52ef140f407b1b04d1c'
             '6fcf7054f412a19c23c1ac3c0663f42f40bccc907d98c5d1657ae5cab9973ee9'
             'a377fbce78ba10f3ed3a8b5173ea318f8cf8da9d2ab127bb1e1f263078bf7da0'
             'dae9fb572f04e7df0dabc228f21cdd8bbfa1ff88e682e983ef558585bc899de0'
+            'a1290ae5f2c7829a9f680d38cb9e6ad3245cfbbe2df9cc65919b3370fdfc2401'
             '2c30af9fcdb75393a738172b50410e93ec817fe61d5421cdd76ba2a20be43edd'
+            'bd6bee4ccc6cf3307ab6ca0eea693a921fab9b067ba40ae12a652636da588ff7'
             '39604e1e1caf39f7957aef6f69e54f863d5f9bf0007c25ae8162e892a2dc31b1'
             '3685353f77b7b38c584b73a9b695766ac3123c4d760fb208d5e490ca50b2bb16'
             '4a62b72e3d2d0d520ca789dae6a5664c26647e08681f5405edeeb65da9cebacd'
@@ -159,7 +165,11 @@ package() {
   install -Dm644 "$srcdir/service" "$pkgdir/usr/lib/systemd/system/openresty.service"
   rm -rf "$pkgdir/var/run"
   install -Dm755 $srcdir/$pkgname.sh $pkgdir/etc/profile.d/$pkgname.sh
+  cd "$srcdir/lua-cjson-$lua_cjson_version"
+  make PREFIX="$pkgdir/$_pfxdir/luajit" LUA_INCLUDE_DIR="$pkgdir/$_pfxdir/luajit/include/luajit-2.1" install
   cd "$srcdir/lua-resty-core-$ngx_lua_resty_core_version"
+  make DESTDIR="$pkgdir" LUA_LIB_DIR="$_pfxdir/luajit/share/lua/5.1" install
+  cd "$srcdir/lua-resty-string-$ngx_lua_resty_string_version"
   make DESTDIR="$pkgdir" LUA_LIB_DIR="$_pfxdir/luajit/share/lua/5.1" install
   cd "$srcdir/lua-resty-lrucache-$ngx_lua_resty_lrucache_version"
   make DESTDIR="$pkgdir" LUA_LIB_DIR="$_pfxdir/luajit/share/lua/5.1" install
