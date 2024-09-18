@@ -6,7 +6,11 @@ RUN pacman -Syyu --noconfirm base-devel sudo bash-completion nano git
 RUN useradd vscode \
  && mkdir -p /home/vscode \
  && chown -R vscode:vscode /home/vscode/ \
- && usermod -aG wheel vscode
+ && usermod -aG wheel vscode \
+ && echo 'root:1234' | chpasswd \
+ && echo 'vscode:1234' | chpasswd \
+ && echo
+
 
 # Set default user
 USER vscode
