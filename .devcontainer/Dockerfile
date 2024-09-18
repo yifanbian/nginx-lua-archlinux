@@ -1,6 +1,6 @@
 FROM archlinux:latest
 
-RUN pacman -Syyu --noconfirm build-devel sudo bash-completion nano git
+RUN pacman -Syyu --noconfirm base-devel sudo bash-completion nano git
 
 # Add defualt user
 RUN useradd vscode \
