@@ -9,7 +9,7 @@ RUN useradd vscode \
  && usermod -aG wheel vscode \
  && echo 'root:1234' | chpasswd \
  && echo 'vscode:1234' | chpasswd \
- && echo
+ && echo 'vscode ALL=(ALL:ALL) NOPASSWD: ALL' | tee /etc/sudoers
 
 
 # Set default user
