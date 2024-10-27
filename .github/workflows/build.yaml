@@ -9,9 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
-    permissions:
-      id-token: write
-      pages: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup
@@ -34,6 +31,16 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: /tmp/repo
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
-        if: github.event.push
         uses: actions/deploy-pages@v4
