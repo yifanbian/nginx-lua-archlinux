@@ -1,0 +1,36 @@
+name: Build
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ master, ci ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          pacman -Syyu --noconfirm base-devel sudo bash-completion nano git gnupg
+          useradd -m builder
+          echo 'builder ALL=NOPASSWD: ALL' >> /etc/sudoers
+          chown -R builder:builder .
+      - name: Build
+        run: |
+          sudo -u builder bash -c 'source PKGBUILD; for x in ${validpgpkeys[@]}; do gpg --recv-keys $x; done'
+          sudo -u builder bash -c 'yes | makepkg -s'
+      - name: Pack
+        run: |
+          mkdir -p /tmp/repo/x86_64
+          mv *.pkg.tar.zst /tmp/repo/x86_64
+          cd /tmp/repo/x86_64
+          repo-add openresty.db.tar.zst *.pkg.tar.zst
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/repo
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
