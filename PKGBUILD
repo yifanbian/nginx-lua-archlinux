@@ -3,7 +3,7 @@ _ngxdir=$_pfxdir/nginx
 _cfgdir=$_ngxdir/conf
 _tmpdir=/var/lib/openresty
 pkgname=openresty
-pkgver=1.27.1
+pkgver=1.27.2
 pkgrel=1
 pkgdesc="A Fast and Scalable Web Platform by Extending NGINX with Lua"
 arch=('x86_64')
@@ -66,7 +66,7 @@ source=(http://nginx.org/download/nginx-$pkgver.tar.gz{,.asc}
         $pkgname.sh
         )
 noextract=()
-sha256sums=('bd7ba68a6ce1ea3768b771c7e2ab4955a59fb1b1ae8d554fedb6c2304104bdfc'
+sha256sums=('a91ecfc3a0b3a2c1413afca627bd886d76e0414b81cad0fb7872a9655a1b25fa'
             'SKIP'
             '9e59ec13c301c8b2855838b1248def49ef348a3e7563fabef677431706718145'
             'faa2fcd5168b10764d35081356511d5f84db5c526a1aa4b6add2db94b6853b2b'
